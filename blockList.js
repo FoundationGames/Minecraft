@@ -147,5 +147,21 @@ const blockList = [
         multiside: false,
         xshape: true,
         transparent: false
+    },
+    {
+        id: 17,
+        pic: 'concern.png',
+        name: 'Block of Concern',
+        multiside: false,
+        xshape: false,
+        transparent: false
+    },
+    {
+        id: 18,
+        pic: 'chain.png',
+        name: 'Chain',
+        multiside: false,
+        xshape: true,
+        transparent: false
     }
 ];
