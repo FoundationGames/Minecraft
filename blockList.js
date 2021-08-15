@@ -163,5 +163,80 @@ const blockList = [
         multiside: false,
         xshape: true,
         transparent: false
+    },
+    {
+        id: 19,
+        pic: 'bush_plant.png',
+        name: 'Bush',
+        multiside: false,
+        xshape: false,
+        transparent: true,
+        quads: [
+            {pic: 'bush_plant.png',ext: 0,yaw: 45,pitch: 0},
+            {pic: 'bush_plant.png',ext: 0,yaw: 135,pitch: 0},
+            {pic: 'bush_side.png',ext: 50,yaw: 0,pitch: 0},
+            {pic: 'bush_side.png',ext: 50,yaw: 90,pitch: 0},
+            {pic: 'bush_side.png',ext: 50,yaw: 180,pitch: 0},
+            {pic: 'bush_side.png',ext: 50,yaw: 270,pitch: 0},
+            {pic: 'bush_top.png',ext: 50,yaw: 0,pitch: 90}
+        ]
+    },
+    {
+        id: 20,
+        pic: 'lantern_side.png',
+        name: 'Lantern',
+        multiside: false,
+        xshape: false,
+        transparent: true,
+        quads: [
+            {pic: 'lantern_hook.png',ext: 0,yaw: 45,pitch: 0},
+            {pic: 'lantern_hook.png',ext: 0,yaw: 135,pitch: 0},
+            {pic: 'lantern_side.png',ext: 18,yaw: 0,pitch: 0},
+            {pic: 'lantern_side.png',ext: 18,yaw: 90,pitch: 0},
+            {pic: 'lantern_side.png',ext: 18,yaw: 180,pitch: 0},
+            {pic: 'lantern_side.png',ext: 18,yaw: 270,pitch: 0},
+            {pic: 'lantern_top_side.png',ext: 12,yaw: 0,pitch: 0},
+            {pic: 'lantern_top_side.png',ext: 12,yaw: 90,pitch: 0},
+            {pic: 'lantern_top_side.png',ext: 12,yaw: 180,pitch: 0},
+            {pic: 'lantern_top_side.png',ext: 12,yaw: 270,pitch: 0},
+            {pic: 'lantern_end.png',ext: 50,yaw: 0,pitch: 270},
+            {pic: 'lantern_end.png',ext: -6,yaw: 0,pitch: 90},
+            {pic: 'lantern_top.png',ext: 6,yaw: 0,pitch: 90}
+        ]
+    },
+    {
+        id: 20,
+        pic: 'potato_front.png',
+        name: 'Tiny Potato',
+        multiside: false,
+        xshape: false,
+        transparent: true,
+        quads: [
+            {pic: 'potato_front.png',ext: 12,yaw: 0,pitch: 0},
+            {pic: 'potato_side.png',ext: 12,yaw: 90,pitch: 0},
+            {pic: 'potato_side.png',ext: 12,yaw: 180,pitch: 0},
+            {pic: 'potato_side.png',ext: 12,yaw: 270,pitch: 0},
+            {pic: 'potato_top.png',ext: -12,yaw: 0,pitch: 90},
+            {pic: 'potato_top.png',ext: 50,yaw: 0,pitch: 270}
+        ]
+    },
+    {
+        id: 20,
+        pic: 'pineapple_side.png',
+        name: 'Pineapple',
+        multiside: false,
+        xshape: false,
+        transparent: true,
+        quads: [
+            {pic: 'pineapple_side.png',ext: 28,yaw: 0,pitch: 0},
+            {pic: 'pineapple_side.png',ext: 28,yaw: 90,pitch: 0},
+            {pic: 'pineapple_side.png',ext: 28,yaw: 180,pitch: 0},
+            {pic: 'pineapple_side.png',ext: 28,yaw: 270,pitch: 0},
+            {pic: 'pineapple_face.png',ext: 30,yaw: 0,pitch: 0},
+            {pic: 'pineapple_top.png',ext: 0,yaw: 0,pitch: 90},
+            {pic: 'pineapple_top.png',ext: 50,yaw: 0,pitch: 270},
+            {pic: 'pineapple_stem.png',ext: 0,yaw: 45,pitch: 0},
+            {pic: 'pineapple_stem.png',ext: 0,yaw: 135,pitch: 0}
+        ]
     }
 ];

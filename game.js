@@ -54,24 +54,35 @@ function constructCubeDom(id)
 
     //transform Y is reversed
 }
+
+function addCustomModelFace(yaw, pitch, ext, texture) {
+    let face = document.createElement('face');
+    face.className = 'face';
+    face.side = 6;
+    face.style.backgroundImage = `url(textures/${texture})`;
+    face.style.transform = `rotateY(${yaw}deg) rotateX(${pitch}deg) translateZ(${ext}px)`;
+
+    return face;
+}
+
 function addFace(type, side)
 {
     let face = document.createElement('face');
+    let blockType = blockList[type];
     face.className = 'face';
     face.side = side;
-    if(blockList[type].multiside)
+    if(blockType.multiside)
     {
-        face.style.backgroundImage = `url(textures/${blockList[type].sides[side]})`;
+        face.style.backgroundImage = `url(textures/${blockType.sides[side]})`;
     }
-    else if(blockList[type].xshape)
+    else if(blockType.xshape)
     {
         face.style.backgroundImage = `none`;
     }
     else
     {
-        face.style.backgroundImage = `url(textures/${blockList[type].pic})`;
+        face.style.backgroundImage = `url(textures/${blockType.pic})`;
     }
-
     if(side < 4)
         face.style.transform = `rotateY(${side * 90}deg) translateZ(50px)`;
     else
@@ -136,6 +147,19 @@ function isXShaped(x,z,y)
 
 }
 
+function isXShaped(x,z,y)
+{
+    if(blockData[x] == undefined || blockData[x][z] == undefined || blockData[x][z][y] == undefined)
+    {
+        return false;
+    }
+    else if(blockList[blockData[x][z][y]].xshape)
+        return true;
+    return false;
+
+
+}
+
 function blockUpdate(x,z,y)
 {
 
@@ -153,51 +177,63 @@ function blockUpdate(x,z,y)
 
         if(type != 0)
         {
-
             let blockTransparent = isTransparent(x,z,y);
             let blockXShaped = isXShaped(x,z,y);
             let visibleFaces = 0;
-            if(isAir(x,z - -1,y) || isXShaped(x,z - -1,y) || (isTransparent(x,z - -1,y) && !blockTransparent))
-            {
-                let elem = addFace(type, 0);
-                block.faces[0] = elem;
-                block.appendChild(elem);
-                ++visibleFaces;
-            }
-            if(isAir(x,z - 1,y) || isXShaped(x,z - 1,y) || ( isTransparent(x,z - 1,y) && !blockTransparent))
-            {
-                let elem = addFace(type, 2);
-                block.faces[2] = elem;
-                block.appendChild(elem);
-                ++visibleFaces;
-            }
-            if(isAir(x - -1,z,y) || isXShaped(x - -1,z,y) || ( isTransparent(x - -1,z,y) && !blockTransparent))
-            {
-                let elem = addFace(type, 1);
-                block.faces[1] = elem;
-                block.appendChild(elem);
-                ++visibleFaces;
-            }
-            if(isAir(x - 1,z,y) || isXShaped(x - 1,z,y) || (isTransparent(x - 1,z,y) && !blockTransparent))
-            {
-                let elem = addFace(type, 3);
-                block.faces[3] = elem;
-                block.appendChild(elem);
-                ++visibleFaces;
-            }
-            if(isAir(x,z,y - -1) || isXShaped(x,z,y - -1) || (isTransparent(x,z,y - -1) && !blockTransparent))
-            {
-                let elem = addFace(type, 4);
-                block.faces[4] = elem;
-                block.appendChild(elem);
-                ++visibleFaces;
-            }
-            if(isAir(x,z,y - 1) || isXShaped(x,z,y - 1) || (isTransparent(x,z,y - 1) && !blockTransparent))
-            {
-                let elem = addFace(type, 5);
-                block.faces[5] = elem;
-                block.appendChild(elem);
-                ++visibleFaces;
+
+            let customQuads = blockList[type].quads;
+            if (customQuads !== undefined) {
+                let i = 0;
+                console.log(customQuads)
+                for (let quad of customQuads) {
+                    let elem = addCustomModelFace(quad.yaw, quad.pitch, quad.ext, quad.pic);
+                    block.faces[i] = elem;
+                    block.appendChild(elem);
+                    ++visibleFaces;
+                }
+            } else {
+                if(isAir(x,z - -1,y) || isXShaped(x,z - -1,y) || (isTransparent(x,z - -1,y) && !blockTransparent))
+                {
+                    let elem = addFace(type, 0);
+                    block.faces[0] = elem;
+                    block.appendChild(elem);
+                    ++visibleFaces;
+                }
+                if(isAir(x,z - 1,y) || isXShaped(x,z - 1,y) || ( isTransparent(x,z - 1,y) && !blockTransparent))
+                {
+                    let elem = addFace(type, 2);
+                    block.faces[2] = elem;
+                    block.appendChild(elem);
+                    ++visibleFaces;
+                }
+                if(isAir(x - -1,z,y) || isXShaped(x - -1,z,y) || ( isTransparent(x - -1,z,y) && !blockTransparent))
+                {
+                    let elem = addFace(type, 1);
+                    block.faces[1] = elem;
+                    block.appendChild(elem);
+                    ++visibleFaces;
+                }
+                if(isAir(x - 1,z,y) || isXShaped(x - 1,z,y) || (isTransparent(x - 1,z,y) && !blockTransparent))
+                {
+                    let elem = addFace(type, 3);
+                    block.faces[3] = elem;
+                    block.appendChild(elem);
+                    ++visibleFaces;
+                }
+                if(isAir(x,z,y - -1) || isXShaped(x,z,y - -1) || (isTransparent(x,z,y - -1) && !blockTransparent))
+                {
+                    let elem = addFace(type, 4);
+                    block.faces[4] = elem;
+                    block.appendChild(elem);
+                    ++visibleFaces;
+                }
+                if(isAir(x,z,y - 1) || isXShaped(x,z,y - 1) || (isTransparent(x,z,y - 1) && !blockTransparent))
+                {
+                    let elem = addFace(type, 5);
+                    block.faces[5] = elem;
+                    block.appendChild(elem);
+                    ++visibleFaces;
+                }
             }
 
             if(visibleFaces > 0)
