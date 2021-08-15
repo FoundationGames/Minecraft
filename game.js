@@ -60,7 +60,7 @@ function addCustomModelFace(yaw, pitch, ext, texture) {
     face.className = 'face';
     face.side = 6;
     face.style.backgroundImage = `url(textures/${texture})`;
-    face.style.transform = `rotateY(${yaw}deg) rotateX(${pitch}deg) translateZ(${ext}px)`;
+    transformAndShadeFace(face, pitch, yaw, `translateZ(${ext}px)`)
 
     return face;
 }
@@ -83,13 +83,24 @@ function addFace(type, side)
     {
         face.style.backgroundImage = `url(textures/${blockType.pic})`;
     }
+    let xRot = 0;
+    let yRot = 0;
     if(side < 4)
-        face.style.transform = `rotateY(${side * 90}deg) translateZ(50px)`;
+        yRot = side * 90;
     else
-        face.style.transform = `rotateX(${90 + side * 180}deg) translateZ(50px)`;
+        xRot = 90 + side * 180;
+    transformAndShadeFace(face, xRot, yRot, "translateZ(50px)")
 
     return face;
 }
+
+function transformAndShadeFace(face, xRot, yRot, addedTransforms) {
+    face.style.transform = `rotateX(${xRot}deg) rotateY(${yRot}deg) ${addedTransforms}`;
+    let shade = Math.round(100 - (-Math.cos(0.03490659753 * (xRot + 90)) * 9 + 9));
+    shade = Math.round(shade - (Math.cos(0.03490659753 * (yRot + 90)) * 15 + 15));
+    face.style.filter = `brightness(${shade}%)`
+}
+
 function renderGame()
 {
     for(let x in blockData)
